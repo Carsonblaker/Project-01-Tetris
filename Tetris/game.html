@@ -1,0 +1,63 @@
+</style>
+</head>
+<body>
+    <div class="home-screen" id="homeScreen">
+        <div class="home-content">
+            <h1 class="game-title">TETRIS</h1>
+            <div class="tetris-animation">
+                <canvas id="homeAnimation" width="300" height="400"></canvas>
+            </div>
+            <button class="play-button" id="playBtn">PLAY GAME</button>
+            <div class="home-controls">
+                <h3>How to Play</h3>
+                <p><span class="key">←</span> <span class="key">→</span> Move</p>
+                <p><span class="key">↑</span> Rotate</p>
+                <p><span class="key">↓</span> Soft Drop</p>
+                <p><span class="key">SPACE</span> Hard Drop</p>
+            </div>
+            <div class="high-score">High Score: <span id="highScore">0</span></div>
+        </div>
+    </div>
+
+    <div class="container" id="gameContainer" style="display: none;">
+        <div class="game-area">
+            <canvas id="tetris" width="300" height="600"></canvas>
+        </div>
+        
+        <div class="sidebar">
+            <div class="info-panel">
+                <h2>Score</h2>
+                <div class="score" id="score">0</div>
+                
+                <h2>Level</h2>
+                <div class="level" id="level">1</div>
+                
+                <h2>Lines</h2>
+                <div class="lines" id="lines">0</div>
+                
+                <h2>Next Piece</h2>
+                <canvas id="nextPiece" class="next-piece" width="120" height="120"></canvas>
+                
+                <button id="pauseBtn">Pause</button>
+                <button id="homeBtn">Home</button>
+            </div>
+            
+            <div class="controls">
+                <h3>Controls</h3>
+                <p><span class="key">←</span> Move Left</p>
+                <p><span class="key">→</span> Move Right</p>
+                <p><span class="key">↓</span> Soft Drop</p>
+                <p><span class="key">↑</span> Rotate</p>
+                <p><span class="key">SPACE</span> Hard Drop</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-over" id="gameOver">
+        <h2>Game Over!</h2>
+        <div class="final-score">Final Score: <span id="finalScore">0</span></div>
+        <button id="restartBtn">Play Again</button>
+    </div>
+			</style>
+</body>
+</html>

@@ -1,0 +1,312 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Arial', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: linear-gradient(180deg, #1a4d6d 0%, #2d5f7e 100%);
+	position: relative;
+	overflow: hidden;
+}
+
+body::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: 
+					radial-gradient(2px 2px at 20% 30%, white, transparent),
+					radial-gradient(2px 2px at 60% 70%, white, transparent),
+					radial-gradient(1px 1px at 50% 50%, white, transparent),
+					radial-gradient(1px 1px at 80% 10%, white, transparent),
+					radial-gradient(2px 2px at 90% 60%, white, transparent),
+					radial-gradient(1px 1px at 33% 80%, white, transparent);
+	background-size: 200% 200%;
+	animation: stars 3s ease-in-out infinite alternate;
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+@keyframes stars {
+	from { opacity: 0.3; }
+	to { opacity: 0.6; }
+}
+
+.container {
+	display: flex;
+	gap: 30px;
+	padding: 20px;
+}
+
+.game-area {
+	background: linear-gradient(180deg, #6b4d9e 0%, #c084c0 50%, #6b4d9e 100%);
+	padding: 25px;
+	border-radius: 15px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+	position: relative;
+	border: 8px solid #5a8a5a;
+	border-bottom: 15px solid #5a8a5a;
+}
+
+.game-area::before {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+	background: 
+					radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.4), transparent),
+					radial-gradient(2px 2px at 60% 70%, rgba(255,255,255,0.4), transparent),
+					radial-gradient(1px 1px at 50% 50%, rgba(255,255,255,0.4), transparent),
+					radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.4), transparent);
+	pointer-events: none;
+}
+
+.game-area::after {
+	content: '';
+	position: absolute;
+	top: -50px;
+	left: 10%;
+	width: 60px;
+	height: 60px;
+	background: radial-gradient(circle, #fff9e6 0%, #fff 30%, transparent 70%);
+	border-radius: 50%;
+	box-shadow: 0 0 30px rgba(255, 249, 230, 0.8);
+}
+
+canvas {
+	border: 4px solid #d4a574;
+	border-radius: 5px;
+	background: linear-gradient(180deg, #4a1f6b 0%, #8b4f8f 50%, #d084b8 100%);
+	display: block;
+	box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.info-panel {
+	background: rgba(255, 255, 255, 0.95);
+	padding: 20px;
+	border-radius: 15px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+	min-width: 200px;
+	border: 3px solid #d4a574;
+}
+
+h2 {
+	color: #8b4f8f;
+	margin-bottom: 15px;
+	font-size: 1.2em;
+}
+
+.score, .level, .lines {
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #333;
+	margin: 10px 0;
+}
+
+.next-piece {
+	background: linear-gradient(180deg, #4a1f6b 0%, #8b4f8f 50%, #d084b8 100%);
+	width: 120px;
+	height: 120px;
+	margin: 15px auto;
+	border: 3px solid #d4a574;
+	border-radius: 5px;
+}
+
+.controls {
+	background: rgba(255, 255, 255, 0.95);
+	padding: 20px;
+	border-radius: 15px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+	border: 3px solid #d4a574;
+}
+
+.controls h3 {
+	color: #8b4f8f;
+	margin-bottom: 10px;
+}
+
+.controls p {
+	margin: 8px 0;
+	color: #555;
+	font-size: 0.9em;
+}
+
+.key {
+	display: inline-block;
+	background: linear-gradient(135deg, #8b4f8f 0%, #c084c0 100%);
+	color: white;
+	padding: 3px 8px;
+	border-radius: 3px;
+	font-weight: bold;
+	font-size: 0.85em;
+}
+
+button {
+	width: 100%;
+	padding: 12px;
+	margin-top: 15px;
+	font-size: 1.1em;
+	font-weight: bold;
+	border: none;
+	border-radius: 8px;
+	background: linear-gradient(135deg, #8b4f8f 0%, #c084c0 100%);
+	color: white;
+	cursor: pointer;
+	transition: transform 0.2s, box-shadow 0.2s;
+	box-shadow: 0 4px 10px rgba(139, 79, 143, 0.4);
+}
+
+button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+	transform: translateY(0);
+}
+
+.game-over {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: white;
+	padding: 40px;
+	border-radius: 20px;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+	text-align: center;
+	display: none;
+}
+
+.game-over.show {
+	display: block;
+}
+
+.game-over h2 {
+	color: #8b4f8f;
+	font-size: 2em;
+	margin-bottom: 20px;
+}
+
+.game-over .final-score {
+	font-size: 1.5em;
+	color: #333;
+	margin: 20px 0;
+}
+
+.home-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+.home-content {
+	text-align: center;
+	background: rgba(255, 255, 255, 0.95);
+	padding: 50px 40px;
+	border-radius: 30px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+	animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+	from {
+					opacity: 0;
+					transform: scale(0.9);
+	}
+	to {
+					opacity: 1;
+					transform: scale(1);
+	}
+}
+
+.game-title {
+	font-size: 4em;
+	font-weight: bold;
+	background: linear-gradient(135deg, #8b4f8f 0%, #c084c0 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	margin-bottom: 20px;
+	letter-spacing: 10px;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tetris-animation {
+	margin: 30px auto;
+	border: 4px solid #d4a574;
+	border-radius: 10px;
+	background: linear-gradient(180deg, #4a1f6b 0%, #8b4f8f 50%, #d084b8 100%);
+}
+
+.play-button {
+	font-size: 1.5em;
+	padding: 20px 60px;
+	margin: 30px auto;
+	background: linear-gradient(135deg, #8b4f8f 0%, #c084c0 100%);
+	border: none;
+	border-radius: 50px;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 5px 20px rgba(139, 79, 143, 0.5);
+	letter-spacing: 3px;
+}
+
+.play-button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 30px rgba(139, 79, 143, 0.7);
+}
+
+.play-button:active {
+	transform: translateY(-1px);
+}
+
+.home-controls {
+	margin-top: 30px;
+	padding: 20px;
+	background: rgba(139, 79, 143, 0.1);
+	border-radius: 15px;
+}
+
+.home-controls h3 {
+	color: #8b4f8f;
+	margin-bottom: 15px;
+	font-size: 1.2em;
+}
+
+.home-controls p {
+	margin: 10px 0;
+	color: #555;
+	font-size: 1em;
+}
+
+.high-score {
+	margin-top: 25px;
+	font-size: 1.3em;
+	color: #8b4f8f;
+	font-weight: bold;
+}
