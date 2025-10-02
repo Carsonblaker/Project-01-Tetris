@@ -1,5 +1,320 @@
-<html>
-	<head>
-		
-	</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris - Classic Block Puzzle Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .game-preview {
+            display: flex;
+            justify-content: center;
+            margin: 60px 0;
+            animation: fadeIn 1s ease 0.6s both;
+        }
+
+        .tetris-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 30px);
+            grid-template-rows: repeat(8, 30px);
+            gap: 2px;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .block {
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
+            opacity: 0;
+            animation: blockFall 2s ease-in-out infinite;
+        }
+
+        .block.active {
+            opacity: 1;
+        }
+
+        .block.cyan { background: #00f0f0; }
+        .block.yellow { background: #f0f000; }
+        .block.purple { background: #a000f0; }
+        .block.green { background: #00f000; }
+        .block.red { background: #f00000; }
+        .block.blue { background: #0000f0; }
+        .block.orange { background: #f0a000; }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 80px 0;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes blockFall {
+            0%, 100% { transform: translateY(0); opacity: 0; }
+            10%, 90% { opacity: 1; }
+            50% { transform: translateY(150px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.1em; }
+            .nav-links { display: none; }
+            .tetris-grid {
+                grid-template-columns: repeat(10, 20px);
+                grid-template-rows: repeat(8, 20px);
+            }
+            .block { width: 20px; height: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">TETRIS</div>
+            <ul class="nav-links">
+                <li><a href="#play">Play</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#leaderboard">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero container">
+            <h1>Stack, Clear, Conquer</h1>
+            <p>The classic puzzle game reimagined for modern players</p>
+            <button class="cta-button" onclick="alert('Game starting soon!')">Play Now</button>
+
+            <div class="game-preview">
+                <div class="tetris-grid" id="previewGrid"></div>
+            </div>
+        </section>
+
+        <section class="features container">
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3>Classic Gameplay</h3>
+                <p>Experience the timeless mechanics that made Tetris a legend</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast & Responsive</h3>
+                <p>Smooth controls and instant feedback for the perfect gaming experience</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Compete & Win</h3>
+                <p>Challenge yourself and climb the global leaderboard</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Tetris Game. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animated tetris preview
+        const grid = document.getElementById('previewGrid');
+        const colors = ['cyan', 'yellow', 'purple', 'green', 'red', 'blue', 'orange'];
+        const patterns = [
+            [4, 14, 24, 34], // I piece
+            [15, 25, 24, 26], // T piece
+            [5, 15, 25, 26],  // L piece
+            [6, 16, 15, 25],  // S piece
+        ];
+
+        // Create grid blocks
+        for (let i = 0; i < 80; i++) {
+            const block = document.createElement('div');
+            block.className = 'block';
+            grid.appendChild(block);
+        }
+
+        // Animate falling pieces
+        function animatePiece() {
+            const blocks = grid.children;
+            const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Clear previous
+            Array.from(blocks).forEach(b => {
+                b.classList.remove('active', ...colors);
+            });
+            
+            // Show new piece
+            pattern.forEach(index => {
+                if (blocks[index]) {
+                    blocks[index].classList.add('active', color);
+                }
+            });
+        }
+
+        // Animate pieces every 2 seconds
+        animatePiece();
+        setInterval(animatePiece, 2000);
+    </script>
+</body>
 </html>
