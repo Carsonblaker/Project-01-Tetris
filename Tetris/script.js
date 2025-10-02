@@ -273,4 +273,3 @@ document.getElementById('homeBtn').addEventListener('click', returnHome);
 document.getElementById('restartBtn').addEventListener('click', startGame);
 
 initHomeAnimation();
-</script>
